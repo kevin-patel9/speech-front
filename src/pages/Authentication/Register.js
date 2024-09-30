@@ -9,12 +9,12 @@ import { UserAuthContext } from "../../App";
 
 // Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyBVqyZyrxcejXSb8XlLZM6963-G6QPIfrw",
-  authDomain: "listen2-lt.firebaseapp.com",
+  apiKey: process.env.REACT_APP_APIKEY,
+  authDomain: process.env.REACT_APP_AUTH_DOMAIN,
   projectId: "listen2-lt",
   storageBucket: "listen2-lt.appspot.com",
   messagingSenderId: "285191480761",
-  appId: "1:285191480761:web:513f5483596edb32a08268",
+  appId: process.env.REACT_APP_APP_ID,
   measurementId: "G-51NTW6S7T2",
 };
 
@@ -57,7 +57,7 @@ const Register = () => {
       });
       const data = { uid: user.uid, name, email };
       await registerApi(data);
-      navigate("/");
+      navigate("/login");
 
     } catch (error) {
       if (error.code === "auth/email-already-in-use"){
@@ -89,7 +89,7 @@ const Register = () => {
         email: user.email,
       };
       await registerApi(data);
-      navigate("/");
+      navigate("/login");
 
     } catch (error) {
       setError("Failed to sign in with Google. Please try again.");

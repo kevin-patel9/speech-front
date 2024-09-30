@@ -1,9 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import google from "../../assets/google.svg";
 import { NavLink, useNavigate } from "react-router-dom";
-import { getAuth, signInWithPopup, GoogleAuthProvider, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signInWithPopup, GoogleAuthProvider, signInWithEmailAndPassword, deleteUser } from "firebase/auth";
 import { setToken } from "../../common/LoginTokenCall";
 import { UserAuthContext } from "../../App";
+import { checkIfUserExistApi } from "../../API/UserApi";
 
 const LoginPage = () => {
     const [loginEmail, setLoginEmail] = useState("");
@@ -25,6 +26,17 @@ const LoginPage = () => {
             
             const result = await signInWithPopup(auth, provider);
             const user = result.user;
+
+            const userExists = await checkIfUserExistApi(user.uid);
+
+            if (!userExists?.user) {
+                setError("User does not exist in the database. Deleting account...");
+                
+                // Delete the user account
+                await deleteUser(user);
+                return;
+            }
+
             setToken(user.uid);
             navigate("/");
         } catch (error) {

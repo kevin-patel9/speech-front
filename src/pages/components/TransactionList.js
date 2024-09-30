@@ -21,7 +21,7 @@ const TransactionList = ({ refresh }) => {
             }
         };
         fetchData();
-    }, [isLoggedIn]);
+    }, [isLoggedIn, refresh]);
 
     const getSelectedSubcategory = async (subcategoryName) => {
         const response = await getDataListForSubCategoryApi(subcategoryName);

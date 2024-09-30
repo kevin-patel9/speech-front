@@ -17,6 +17,7 @@ const App = () => {
   useEffect(() => {
     if (!getCookie("token")){
       signOut(auth);
+      return;
     }
 
     onAuthStateChanged(auth, (user) => {
@@ -28,7 +29,7 @@ const App = () => {
   }, []);
 
   return (
-    <UserAuthContext.Provider value={{ userUid, isLoggedIn }}>
+    <UserAuthContext.Provider value={{ userUid, isLoggedIn, setIsLoggedIn }}>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<HomePage />} />

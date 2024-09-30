@@ -9,12 +9,17 @@ import TransactionList from "./components/TransactionList";
 
 const HomePage = () => {
   const [refresh, setRefresh] = useState(false);
-  const { isLoggedIn } = useContext(UserAuthContext);
+  const { isLoggedIn, setIsLoggedIn } = useContext(UserAuthContext);
   const navigate = useNavigate();
   const auth = getAuth();
 
   useEffect(() => {
     if (!isLoggedIn) navigate("/login");
+
+    // to avoid hard refresh
+    setTimeout(() => {
+      setRefresh(!refresh);
+    },300)
   }, [isLoggedIn]);
 
   const handleLogout = () => {
