@@ -21,7 +21,7 @@ const LoginPage = () => {
     function triggerRouting() {
         setTimeout(() => {
             navigate("/");
-        },300)
+        },600)
     }
 
     const submitLoginCred = async (e) => {

@@ -9,7 +9,7 @@ import TransactionList from "./components/TransactionList";
 
 const HomePage = () => {
   const [refresh, setRefresh] = useState(false);
-  const { isLoggedIn, setIsLoggedIn } = useContext(UserAuthContext);
+  const { isLoggedIn, userUid } = useContext(UserAuthContext);
   const navigate = useNavigate();
   const auth = getAuth();
 
@@ -44,10 +44,15 @@ const HomePage = () => {
       </div>
       <button
         onClick={handleLogout}
-        className="fixed top-5 right-5 transition rounded duration-300 hover:bg-blue-600 p-2"
+        className="fixed top-5 right-5 transition rounded duration-300 hover:bg-blue-400 p-2"
       >
         Logout
       </button>
+      <div
+        className="fixed top-20 right-5 transition rounded duration-300 hover:bg-blue-200 p-2"
+      >
+        {userUid?.currentUser?.email}
+      </div>
       <FloatingPlusButton refresh={refresh} setRefresh={setRefresh} />
     </div>
   );

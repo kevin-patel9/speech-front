@@ -64,6 +64,7 @@ const DoughnutChart = ({ refresh }) => {
                 ) : (
             <p className="text-center">Loading...</p>
             )}
+            {chartData?.labels?.length === 0 && <div className="text-center">No Data Available to show</div>}
         </div>
     );
 };
