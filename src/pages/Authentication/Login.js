@@ -17,6 +17,12 @@ const LoginPage = () => {
     useEffect(() => {
         if (isLoggedIn) navigate("/");
     },[]);
+    
+    function triggerRouting() {
+        setTimeout(() => {
+            navigate("/");
+        },300)
+    }
 
     const submitLoginCred = async (e) => {
         e.preventDefault();
@@ -38,7 +44,7 @@ const LoginPage = () => {
             }
 
             setToken(user.uid);
-            navigate("/");
+            triggerRouting();
         } catch (error) {
             if (error.code === "auth/popup-closed-by-user")
                 setError("Something went wrong")
@@ -52,7 +58,7 @@ const LoginPage = () => {
             const result = await signInWithEmailAndPassword(auth, loginEmail, loginPassword);
             const user = result.user;
             setToken(user.uid);
-            navigate("/");
+            triggerRouting();
         } catch (error) {
             if (error.code === "auth/popup-closed-by-user"){
                 setError("Something went wrong")
