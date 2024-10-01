@@ -17,6 +17,10 @@ const HomePage = () => {
     if (!isLoggedIn) navigate("/login");
   }, [isLoggedIn]);
 
+  useEffect(() => {
+    if (isLoggedIn) navigate("/");
+  }, [isLoggedIn]);
+
   const handleLogout = () => {
     document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/;";
     signOut(auth);
