@@ -18,7 +18,11 @@ const LoginPage = () => {
         if (isLoggedIn) navigate("/");
     },[isLoggedIn]);
     
-    console.log(isLoggedIn);
+    function triggerRouting() {
+        setTimeout(() => {
+            navigate("/");
+        },600)
+    }
 
     const submitLoginCred = async (e) => {
         e.preventDefault();
@@ -40,6 +44,7 @@ const LoginPage = () => {
             }
 
             setToken(user.uid);
+            triggerRouting();
         } catch (error) {
             if (error.code === "auth/popup-closed-by-user")
                 setError("Something went wrong")
@@ -53,6 +58,7 @@ const LoginPage = () => {
             const result = await signInWithEmailAndPassword(auth, loginEmail, loginPassword);
             const user = result.user;
             setToken(user.uid);
+            triggerRouting();
         } catch (error) {
             if (error.code === "auth/popup-closed-by-user"){
                 setError("Something went wrong")
