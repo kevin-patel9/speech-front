@@ -18,7 +18,12 @@ const HomePage = () => {
   }, [isLoggedIn]);
 
   useEffect(() => {
-    if (isLoggedIn) navigate("/");
+    const redirect = () => {
+      setTimeout(() => {
+        if (isLoggedIn) navigate("/");
+      },600)
+    };
+    redirect();
   }, [isLoggedIn]);
 
   const handleLogout = () => {
