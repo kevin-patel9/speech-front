@@ -17,15 +17,6 @@ const HomePage = () => {
     if (!isLoggedIn) navigate("/login");
   }, [isLoggedIn]);
 
-  useEffect(() => {
-    const redirect = () => {
-      setTimeout(() => {
-        if (isLoggedIn) navigate("/");
-      },600)
-    };
-    redirect();
-  }, [isLoggedIn]);
-
   const handleLogout = () => {
     document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/;";
     signOut(auth);
