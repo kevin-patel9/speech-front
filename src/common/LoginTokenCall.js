@@ -1,22 +1,19 @@
 import { commonPoint } from "./Apicall";
 
-export const setToken = (uid) => {
+export const setToken = async (uid) => {
     try {
-        fetch(`${commonPoint}/api/v1/user/loginToken`, {
+        const response = await fetch(`${commonPoint}/api/v1/user/loginToken`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({
-                uid,
-            }),
-        })
-        .then((response) => response.json())
-        .then((data) => {
-            document.cookie = `token=${data.token}; path=/`;
-        })
-        .catch((error) => console.error(error));
-    } catch (e) {
-        console.log(e);
+            body: JSON.stringify({ uid }),
+        });
+
+        const data = await response.json();
+        document.cookie = `token=${data.token}; path=/`;
+        
+    } catch (error) {
+        console.error("Error setting token:", error);
     }
 };

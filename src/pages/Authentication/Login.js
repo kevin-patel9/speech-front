@@ -9,7 +9,6 @@ import { checkIfUserExistApi } from "../../API/UserApi";
 const LoginPage = () => {
     const [loginEmail, setLoginEmail] = useState("");
     const [loginPassword, setLoginPassword] = useState("");
-    const [refresh, setRefresh] = useState(false);
     const [error, setError] = useState("");
     const { isLoggedIn } = useContext(UserAuthContext);
 
@@ -17,13 +16,7 @@ const LoginPage = () => {
 
     useEffect(() => {
         if (isLoggedIn) navigate("/");
-    },[isLoggedIn, refresh]);
-    
-    function triggerRouting() {
-        setTimeout(() => {
-            setRefresh(!refresh);
-        },600)
-    }
+    },[isLoggedIn]);
 
     const submitLoginCred = async (e) => {
         e.preventDefault();
@@ -44,8 +37,8 @@ const LoginPage = () => {
                 return;
             }
 
-            setToken(user.uid);
-            triggerRouting();
+            await setToken(user.uid);
+            navigate("/");
         } catch (error) {
             if (error.code === "auth/popup-closed-by-user")
                 setError("Something went wrong")
@@ -58,8 +51,8 @@ const LoginPage = () => {
             const auth = getAuth();
             const result = await signInWithEmailAndPassword(auth, loginEmail, loginPassword);
             const user = result.user;
-            setToken(user.uid);
-            triggerRouting();
+            await setToken(user.uid);
+            navigate("/");
         } catch (error) {
             if (error.code === "auth/popup-closed-by-user"){
                 setError("Something went wrong")
