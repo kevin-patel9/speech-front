@@ -46,14 +46,13 @@ const BarGraphChart = ({ refresh }) => {
                         });
                     });
 
-                    const datasets = Object.keys(categoriesData).map(category => ({
+                    const datasets = Object.keys(categoriesData).map((category, idx) => ({
                         label: category,
                         data: categoriesData[category],
-                        backgroundColor: `rgba(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, 0.6)`, // Random colors
-                        stack: 'Stack 0',
+                        backgroundColor: idx % 2 === 0 ? 'rgba(0, 228, 0, 0.7)' : 'rgba(255, 204, 0, 0.7)',
+                        stack: 'Stack',
                     }));
 
-                    // x-axis date and graph data with x-axis
                     setChartData({
                         labels,
                         datasets,
@@ -79,8 +78,11 @@ const BarGraphChart = ({ refresh }) => {
                             display: true,
                             text: 'Weekly Expenses by Category',
                         },
+                    legend: {
+                        display: false,
                     },
-                }}
+                }
+            }}
             />
             ) : (
                 <p className="text-center">Loading...</p>

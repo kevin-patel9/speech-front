@@ -59,7 +59,7 @@ const TransactionList = ({ refresh }) => {
                             onClick={() => getSelectedSubcategory(list.name)} 
                             className={`border p-1 rounded cursor-pointer ${selectedCategory === list.name ? 'bg-blue-500 text-white' : ''}`}
                         >
-                            {list.name.length > 12 ? <>{list.name.slice(0, 12)}...</> : list.name}
+                            {list.name.length > 9 ? <>{list.name.slice(0, 9)}...</> : list.name}
                         </div>
                     ))
                 ) : (
